@@ -49,7 +49,7 @@
   <a></a>
 </li>
 <li>
-  <a href="articles/systemPipeRChipseq.html">
+  <a href="articles/systemPipeChIPseq.html">
     <span class="fas fa fas fa-book"></span>
      
     Workflow
@@ -97,7 +97,7 @@
 <p>To install the package, please use the <em><code><a href="https://rdrr.io/pkg/BiocManager/man/install.html">BiocManager::install</a></code></em> command:</p>
 <pre><code>if (!requireNamespace("BiocManager", quietly=TRUE))
     install.packages("BiocManager")
-BiocManager::install("systemPipeR/SYSPipeRChipseq", dependencies=TRUE)</code></pre>
+BiocManager::install("systemPipeR/SYSPipeRChipseq", build_vignettes=TRUE, dependencies=TRUE)</code></pre>
 <p>To obtain the <em>systemPipeR</em> and <em>systemPipeRdata</em>, please run as follow:</p>
 <pre><code>if (!requireNamespace("BiocManager", quietly=TRUE))
     install.packages("BiocManager")
