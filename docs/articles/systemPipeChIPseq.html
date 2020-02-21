@@ -5,7 +5,7 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ChIP-Seq Workflow Template • SYSPipeRChipseq</title>
+<title>ChIP-Seq Workflow Template • systemPipeChIPseq</title>
 <!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script><!-- Bootstrap --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha256-916EbMg70RQy9LHiGkXzG8hSg9EdNy97GazNG/aiY1w=" crossorigin="anonymous">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/all.min.css" integrity="sha256-nAmazAk6vS34Xqo0BSrTb+abbtFlgsFK7NKSi6o7Y78=" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/v4-shims.min.css" integrity="sha256-6qHlizsOWFskGlwVOKuns+D1nB6ssZrHQrNj1wGplHc=" crossorigin="anonymous">
@@ -32,7 +32,7 @@
         <span class="icon-bar"></span>
       </button>
       <span class="navbar-brand">
-        <a class="navbar-link" href="../index.html">SYSPipeRChipseq</a>
+        <a class="navbar-link" href="../index.html">systemPipeChIPseq</a>
         <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.0</span>
       </span>
     </div>
@@ -47,6 +47,9 @@
 </li>
 <li>
   <a></a>
+</li>
+<li>
+  <a href="../articles/systemPipeChIPseq.html">Get started</a>
 </li>
 <li>
   <a href="../articles/systemPipeChIPseq.html">
@@ -85,9 +88,9 @@
       <h1>ChIP-Seq Workflow Template</h1>
                         <h4 class="author">Author: Daniela Cassol (<a href="mailto:danielac@ucr.edu" class="email">danielac@ucr.edu</a>) and Thomas Girke (<a href="mailto:thomas.girke@ucr.edu" class="email">thomas.girke@ucr.edu</a>)</h4>
             
-            <h4 class="date">Last update: 14 February, 2020</h4>
+            <h4 class="date">Last update: 20 February, 2020</h4>
       
-      <small class="dont-index">Source: <a href="https://github.com/systemPipeR/SYSPipeRChipseq/blob/master/vignettes/systemPipeChIPseq.Rmd"><code>vignettes/systemPipeChIPseq.Rmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/systemPipeR/systemPipeChIPseq/blob/master/vignettes/systemPipeChIPseq.Rmd"><code>vignettes/systemPipeChIPseq.Rmd</code></a></small>
       <div class="hidden name"><code>systemPipeChIPseq.Rmd</code></div>
 
     </div>
@@ -702,8 +705,8 @@ Figure 2: One of the motifs identified by <code>BCRANK</code>
 ## 
 ## other attached packages:
 ##  [1] systemPipeR_1.21.2          ShortRead_1.45.3           
-##  [3] GenomicAlignments_1.23.1    SummarizedExperiment_1.17.1
-##  [5] DelayedArray_0.13.3         matrixStats_0.55.0         
+##  [3] GenomicAlignments_1.23.1    SummarizedExperiment_1.17.2
+##  [5] DelayedArray_0.13.4         matrixStats_0.55.0         
 ##  [7] Biobase_2.47.2              BiocParallel_1.21.2        
 ##  [9] Rsamtools_2.3.4             Biostrings_2.55.4          
 ## [11] XVector_0.27.0              GenomicRanges_1.39.2       
@@ -724,14 +727,14 @@ Figure 2: One of the motifs identified by <code>BCRANK</code>
 ##  [19] compiler_4.0.0           httr_1.4.1              
 ##  [21] GOstats_2.53.0           backports_1.1.5         
 ##  [23] assertthat_0.2.1         Matrix_1.2-18           
-##  [25] lazyeval_0.2.2           limma_3.43.3            
+##  [25] lazyeval_0.2.2           limma_3.43.4            
 ##  [27] formatR_1.7              htmltools_0.4.0         
 ##  [29] prettyunits_1.1.1        tools_4.0.0             
 ##  [31] gtable_0.3.0             glue_1.3.1              
 ##  [33] GenomeInfoDbData_1.2.2   Category_2.53.1         
 ##  [35] dplyr_0.8.4              batchtools_0.9.12       
 ##  [37] rappdirs_0.3.1           Rcpp_1.0.3              
-##  [39] pkgdown_1.4.1            vctrs_0.2.2             
+##  [39] pkgdown_1.4.1            vctrs_0.2.3             
 ##  [41] debugme_1.1.0            rtracklayer_1.47.0      
 ##  [43] xfun_0.12                stringr_1.4.0           
 ##  [45] lifecycle_0.1.0          XML_3.99-0.3            
@@ -742,10 +745,10 @@ Figure 2: One of the motifs identified by <code>BCRANK</code>
 ##  [55] RColorBrewer_1.1-2       yaml_2.2.1              
 ##  [57] curl_4.3                 memoise_1.1.0           
 ##  [59] ggplot2_3.2.1            biomaRt_2.43.3          
-##  [61] latticeExtra_0.6-29      stringi_1.4.5           
+##  [61] latticeExtra_0.6-29      stringi_1.4.6           
 ##  [63] RSQLite_2.2.0            genefilter_1.69.0       
 ##  [65] desc_1.2.0               checkmate_2.0.0         
-##  [67] GenomicFeatures_1.39.4   rlang_0.4.4             
+##  [67] GenomicFeatures_1.39.5   rlang_0.4.4             
 ##  [69] pkgconfig_2.0.3          bitops_1.0-6            
 ##  [71] evaluate_0.14            lattice_0.20-38         
 ##  [73] purrr_0.3.3              bit_1.1-15.2            
