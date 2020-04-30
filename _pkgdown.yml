@@ -23,7 +23,7 @@ template:
 navbar:
   title: "systemPipeChIPseq"
   left:
-    - text: "Home"
+    - icon: fas fa-home fa-lg
       href: index.html
     - text: "Workflow"
       href: articles/systemPipeChIPseq.html
