@@ -46,16 +46,7 @@
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
 <li>
-  <a href="../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
-     
-  </a>
-</li>
-<li>
-  <a></a>
-</li>
-<li>
-  <a href="../articles/systemPipeChIPseq.html">Get started</a>
+  <a href="../index.html">Home</a>
 </li>
 <li>
   <a href="../articles/systemPipeChIPseq.html">
@@ -67,7 +58,7 @@
       </ul>
 <ul class="nav navbar-nav navbar-right">
 <li>
-  <a href="https://github.com/tgirke/systemPipeR">
+  <a href="https://github.com/systemPipeR/systemPipeChIPseq">
     <span class="fa fa-github fa-lg"></span>
      
   </a>
@@ -94,7 +85,7 @@
       <h1 data-toc-skip>ChIP-Seq Workflow Template</h1>
                         <h4 class="author">Author: Daniela Cassol (<a href="mailto:danielac@ucr.edu" class="email">danielac@ucr.edu</a>) and Thomas Girke (<a href="mailto:thomas.girke@ucr.edu" class="email">thomas.girke@ucr.edu</a>)</h4>
             
-            <h4 class="date">Last update: 18 April, 2020</h4>
+            <h4 class="date">Last update: 29 April, 2020</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/systemPipeR/systemPipeChIPseq/blob/master/vignettes/systemPipeChIPseq.Rmd"><code>vignettes/systemPipeChIPseq.Rmd</code></a></small>
       <div class="hidden name"><code>systemPipeChIPseq.Rmd</code></div>
@@ -211,7 +202,7 @@ document.addEventListener("DOMContentLoaded", function() {
 <span class="no">trim</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/systemPipeR/man/renderWF.html">renderWF</a></span>(<span class="no">trim</span>, <span class="kw">inputvars</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="kw">FileName</span> <span class="kw">=</span> <span class="st">"_FASTQ_PATH1_"</span>,
     <span class="kw">SampleName</span> <span class="kw">=</span> <span class="st">"_SampleName_"</span>))
 <span class="no">trim</span>
-<span class="fu"><a href="https://rdrr.io/pkg/systemPipeR/man/SYSargs2list-methods.html">output</a></span>(<span class="no">trim</span>)[<span class="fl">1</span>:<span class="fl">2</span>]</pre></body></html></div>
+<span class="fu"><a href="https://rdrr.io/pkg/systemPipeR/man/sysargs2-methods.html">output</a></span>(<span class="no">trim</span>)[<span class="fl">1</span>:<span class="fl">2</span>]</pre></body></html></div>
 <p>Next, we execute the code for trimming all the raw data.</p>
 <div class="sourceCode" id="cb11"><html><body><pre class="r"><span class="co"># args &lt;- systemArgs(sysma='param/trim.param',</span>
 <span class="co"># mytargets='targets_chip.txt')</span>
@@ -272,7 +263,7 @@ Figure 1: FASTQ quality report for 18 samples
     <span class="kw">input_file</span> <span class="kw">=</span> <span class="st">"bowtie2-index.yml"</span>, <span class="kw">dir_path</span> <span class="kw">=</span> <span class="no">dir_path</span>)
 <span class="no">idx</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/systemPipeR/man/renderWF.html">renderWF</a></span>(<span class="no">idx</span>)
 <span class="no">idx</span>
-<span class="fu"><a href="https://rdrr.io/pkg/systemPipeR/man/SYSargs2list-methods.html">cmdlist</a></span>(<span class="no">idx</span>)
+<span class="fu"><a href="https://rdrr.io/pkg/systemPipeR/man/sysargs2-methods.html">cmdlist</a></span>(<span class="no">idx</span>)
 
 <span class="co">## Run in single machine</span>
 <span class="fu"><a href="https://rdrr.io/pkg/systemPipeR/man/runCommandline.html">runCommandline</a></span>(<span class="no">idx</span>, <span class="kw">make_bam</span> <span class="kw">=</span> <span class="fl">FALSE</span>)</pre></body></html></div>
@@ -284,8 +275,8 @@ Figure 1: FASTQ quality report for 18 samples
 <span class="no">args</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/systemPipeR/man/renderWF.html">renderWF</a></span>(<span class="no">args</span>, <span class="kw">inputvars</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="kw">FileName</span> <span class="kw">=</span> <span class="st">"_FASTQ_PATH1_"</span>,
     <span class="kw">SampleName</span> <span class="kw">=</span> <span class="st">"_SampleName_"</span>))
 <span class="no">args</span>
-<span class="fu"><a href="https://rdrr.io/pkg/systemPipeR/man/SYSargs2list-methods.html">cmdlist</a></span>(<span class="no">args</span>)[<span class="fl">1</span>:<span class="fl">2</span>]
-<span class="fu"><a href="https://rdrr.io/pkg/systemPipeR/man/SYSargs2list-methods.html">output</a></span>(<span class="no">args</span>)[<span class="fl">1</span>:<span class="fl">2</span>]</pre></body></html></div>
+<span class="fu"><a href="https://rdrr.io/pkg/systemPipeR/man/sysargs2-methods.html">cmdlist</a></span>(<span class="no">args</span>)[<span class="fl">1</span>:<span class="fl">2</span>]
+<span class="fu"><a href="https://rdrr.io/pkg/systemPipeR/man/sysargs2-methods.html">output</a></span>(<span class="no">args</span>)[<span class="fl">1</span>:<span class="fl">2</span>]</pre></body></html></div>
 <div class="sourceCode" id="cb15"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/pkg/systemPipeR/man/moduleload.html">moduleload</a></span>(<span class="fu"><a href="https://rdrr.io/pkg/systemPipeR/man/sysargs.html">modules</a></span>(<span class="no">args</span>))  <span class="co"># Skip if a module system is not used</span>
 <span class="no">resources</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span>(<span class="kw">walltime</span> <span class="kw">=</span> <span class="fl">120</span>, <span class="kw">ntasks</span> <span class="kw">=</span> <span class="fl">1</span>, <span class="kw">ncpus</span> <span class="kw">=</span> <span class="fl">4</span>, <span class="kw">memory</span> <span class="kw">=</span> <span class="fl">1024</span>)
 <span class="no">reg</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/systemPipeR/man/clusterRun.html">clusterRun</a></span>(<span class="no">args</span>, <span class="kw">FUN</span> <span class="kw">=</span> <span class="no">runCommandline</span>, <span class="kw">more.args</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span>(<span class="kw">args</span> <span class="kw">=</span> <span class="no">args</span>,
@@ -295,7 +286,7 @@ Figure 1: FASTQ quality report for 18 samples
 <span class="fu"><a href="https://rdrr.io/pkg/batchtools/man/waitForJobs.html">waitForJobs</a></span>(<span class="kw">reg</span> <span class="kw">=</span> <span class="no">reg</span>)
 <span class="no">args</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/systemPipeR/man/output_update.html">output_update</a></span>(<span class="no">args</span>, <span class="kw">dir</span> <span class="kw">=</span> <span class="fl">FALSE</span>, <span class="kw">replace</span> <span class="kw">=</span> <span class="fl">TRUE</span>, <span class="kw">extension</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">".sam"</span>,
     <span class="st">".bam"</span>))  <span class="co">## Updates the output(args) to the right location in the subfolders</span>
-<span class="fu"><a href="https://rdrr.io/pkg/systemPipeR/man/SYSargs2list-methods.html">output</a></span>(<span class="no">args</span>)</pre></body></html></div>
+<span class="fu"><a href="https://rdrr.io/pkg/systemPipeR/man/sysargs2-methods.html">output</a></span>(<span class="no">args</span>)</pre></body></html></div>
 <p>Alternatively, one can run the alignments sequentially on a single system.</p>
 <div class="sourceCode" id="cb16"><html><body><pre class="r"><span class="no">args</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/systemPipeR/man/runCommandline.html">runCommandline</a></span>(<span class="no">args</span>, <span class="kw">force</span> <span class="kw">=</span> <span class="no">F</span>)</pre></body></html></div>
 <p>Check whether all BAM files have been created and write out the new targets file.</p>
@@ -408,7 +399,7 @@ Figure 1: FASTQ quality report for 18 samples
     <span class="kw">input_file</span> <span class="kw">=</span> <span class="st">"macs2.yml"</span>, <span class="kw">dir_path</span> <span class="kw">=</span> <span class="no">dir_path</span>)
 <span class="no">args_input</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/systemPipeR/man/renderWF.html">renderWF</a></span>(<span class="no">args_input</span>, <span class="kw">inputvars</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="kw">FileName1</span> <span class="kw">=</span> <span class="st">"_FASTQ_PATH1_"</span>,
     <span class="kw">FileName2</span> <span class="kw">=</span> <span class="st">"_FASTQ_PATH2_"</span>, <span class="kw">SampleName</span> <span class="kw">=</span> <span class="st">"_SampleName_"</span>))
-<span class="fu"><a href="https://rdrr.io/pkg/systemPipeR/man/SYSargs2list-methods.html">cmdlist</a></span>(<span class="no">args_input</span>)[<span class="fl">1</span>]
+<span class="fu"><a href="https://rdrr.io/pkg/systemPipeR/man/sysargs2-methods.html">cmdlist</a></span>(<span class="no">args_input</span>)[<span class="fl">1</span>]
 <span class="co">## Run</span>
 <span class="no">args_input</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/systemPipeR/man/runCommandline.html">runCommandline</a></span>(<span class="no">args_input</span>, <span class="kw">make_bam</span> <span class="kw">=</span> <span class="fl">FALSE</span>, <span class="kw">force</span> <span class="kw">=</span> <span class="no">T</span>)
 <span class="no">outpaths_input</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/systemPipeR/man/subsetWF.html">subsetWF</a></span>(<span class="no">args_input</span>, <span class="kw">slot</span> <span class="kw">=</span> <span class="st">"output"</span>, <span class="kw">subset</span> <span class="kw">=</span> <span class="fl">1</span>,
