@@ -19,5 +19,8 @@ SystemRequirements: SPchipseq can be used to run external
         command-line software (e.g. short read aligners), but the 
         corresponding tool needs to be installed on a system.  
 License: Artistic-2.0
-URL: https://github.com/systemPipeR/SPchipseq
+Encoding: UTF-8
+LazyData: true
+Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.1
+URL: https://github.com/systemPipeR/SPchipseq, https://systempipe.org/
