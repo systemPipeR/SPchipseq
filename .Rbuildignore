@@ -1,0 +1,8 @@
+^README\.Rmd$
+^logs\.sh$
+^_pkgdown\.yml$
+^SPchipseq\.Rproj$
+^\.Rproj\.user$
+^inst/rmarkdown/templates/SPchipseq/skeleton/.batchtools.conf.R
+^\.github
+^inst/extdata/.batchtools.conf.R

@@ -1,4 +1,4 @@
-# SPchipseq <img src="https://github.com/tgirke/systemPipeR/raw/gh-pages/images/systemPipeR.png" align="right" height="139" />
+# SPchipseq <img src="https://raw.githubusercontent.com/systemPipeR/SPchipseq/master/inst/extdata/SPchipseq.png" align="right" height="139" />
 
 <!-- badges: start -->
 ![R-CMD-check](https://github.com/systemPipeR/SPchipseq/workflows/R-CMD-check/badge.svg)
