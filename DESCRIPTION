@@ -1,6 +1,6 @@
 Package: SPchipseq
 Title: ChIP-Seq Workflow
-Version: 0.99.2
+Version: 0.99.3
 Date: 2021-05-04
 Authors@R: c(
     person(given = "Daniela", family = "Cassol", role = c("aut", "cre"), email="danicassol@gmail.com"), 
