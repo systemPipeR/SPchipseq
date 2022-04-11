@@ -1,10 +1,10 @@
 pandoc: '2.13'
-pkgdown: 1.6.1
+pkgdown: 2.0.2
 pkgdown_sha: ~
 articles:
   SPchipseq: SPchipseq.html
-last_built: 2021-05-04T23:18Z
+last_built: 2022-04-11T05:04Z
 urls:
-  reference: https://systempipe.org/SPchipseq//reference
-  article: https://systempipe.org/SPchipseq//articles
+  reference: https://systempipe.org/SPchipseq/reference
+  article: https://systempipe.org/SPchipseq/articles
 
