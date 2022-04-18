@@ -75,7 +75,7 @@
       <h1 data-toc-skip>ChIP-Seq Workflow Template</h1>
                         <h4 data-toc-skip class="author">Author: Daniela Cassol (<a href="mailto:danielac@ucr.edu" class="email">danielac@ucr.edu</a>) and Thomas Girke (<a href="mailto:thomas.girke@ucr.edu" class="email">thomas.girke@ucr.edu</a>)</h4>
             
-            <h4 data-toc-skip class="date">Last update: 16 April, 2022</h4>
+            <h4 data-toc-skip class="date">Last update: 18 April, 2022</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/systemPipeR/SPchipseq/blob/HEAD/vignettes/SPchipseq.Rmd" class="external-link"><code>vignettes/SPchipseq.Rmd</code></a></small>
       <div class="hidden name"><code>SPchipseq.Rmd</code></div>
@@ -86,7 +86,7 @@
     
 <!--
 # Compile from command-line
-Rscript -e "rmarkdown::render('systemPipeChIPseq.Rmd', c('BiocStyle::html_document'), clean=FALSE); knitr::knit('systemPipeChIPseq.Rmd', tangle=TRUE)"; Rscript -e "rmarkdown::render('systemPipeChIPseq.Rmd', c('BiocStyle::pdf_document'))"
+Rscript -e "rmarkdown::render('systemPipeChIPseq.Rmd', c('BiocStyle::html_document'), clean=FALSE)"
 -->
 <style type="text/css">
 pre code {
@@ -442,9 +442,13 @@ Figure 2: Plot coverage for chromosome 1 region.
     <span class="va">peaks_files</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/systemPipeR/man/SYSargsList-class.html" class="external-link">getColumn</a></span><span class="op">(</span><span class="va">sal</span>, step <span class="op">=</span> <span class="st">"call_peaks_macs_noref"</span>,
         <span class="st">"outfiles"</span>, column <span class="op">=</span> <span class="st">"peaks_xls"</span><span class="op">)</span>
     <span class="va">peak</span> <span class="op">&lt;-</span> <span class="fu">readPeakFile</span><span class="op">(</span><span class="va">peaks_files</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span><span class="op">)</span>
+    <span class="fu"><a href="https://rdrr.io/r/grDevices/pdf.html" class="external-link">pdf</a></span><span class="op">(</span><span class="st">"results/peakscoverage.pdf"</span><span class="op">)</span>
     <span class="fu">covplot</span><span class="op">(</span><span class="va">peak</span>, weightCol <span class="op">=</span> <span class="st">"X.log10.pvalue."</span><span class="op">)</span>
+    <span class="fu"><a href="https://rdrr.io/r/grDevices/dev.html" class="external-link">dev.off</a></span><span class="op">(</span><span class="op">)</span>
+    <span class="fu"><a href="https://rdrr.io/r/grDevices/pdf.html" class="external-link">pdf</a></span><span class="op">(</span><span class="st">"results/peaksHeatmap.pdf"</span><span class="op">)</span>
     <span class="fu">peakHeatmap</span><span class="op">(</span><span class="va">peaks_files</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>, TxDb <span class="op">=</span> <span class="va">txdb</span>, upstream <span class="op">=</span> <span class="fl">1000</span>,
         downstream <span class="op">=</span> <span class="fl">1000</span>, color <span class="op">=</span> <span class="st">"red"</span><span class="op">)</span>
+    <span class="fu"><a href="https://rdrr.io/r/grDevices/dev.html" class="external-link">dev.off</a></span><span class="op">(</span><span class="op">)</span>
     <span class="fu"><a href="https://rdrr.io/r/grDevices/pdf.html" class="external-link">pdf</a></span><span class="op">(</span><span class="st">"results/peaksProfile.pdf"</span><span class="op">)</span>
     <span class="fu">plotAvgProf2</span><span class="op">(</span><span class="va">peaks_files</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>, TxDb <span class="op">=</span> <span class="va">txdb</span>, upstream <span class="op">=</span> <span class="fl">1000</span>,
         downstream <span class="op">=</span> <span class="fl">1000</span>, xlab <span class="op">=</span> <span class="st">"Genomic Region (5'-&gt;3')"</span>,
