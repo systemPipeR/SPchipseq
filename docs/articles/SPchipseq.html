@@ -75,7 +75,7 @@
       <h1 data-toc-skip>ChIP-Seq Workflow Template</h1>
                         <h4 data-toc-skip class="author">Author: Daniela Cassol (<a href="mailto:danielac@ucr.edu" class="email">danielac@ucr.edu</a>) and Thomas Girke (<a href="mailto:thomas.girke@ucr.edu" class="email">thomas.girke@ucr.edu</a>)</h4>
             
-            <h4 data-toc-skip class="date">Last update: 28 April, 2022</h4>
+            <h4 data-toc-skip class="date">Last update: 01 June, 2022</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/systemPipeR/SPchipseq/blob/HEAD/vignettes/SPchipseq.Rmd" class="external-link"><code>vignettes/SPchipseq.Rmd</code></a></small>
       <div class="hidden name"><code>SPchipseq.Rmd</code></div>
@@ -183,7 +183,7 @@ document.addEventListener("DOMContentLoaded", function() {
 <div class="section level4">
 <h4 id="fastq-quality-report">FASTQ quality report<a class="anchor" aria-label="anchor" href="#fastq-quality-report"></a>
 </h4>
-<p>The following <code>seeFastq</code> and <code>seeFastqPlot</code> functions generate and plot a series of useful quality statistics for a set of FASTQ files, including per cycle quality box plots, base proportions, base-level quality trends, relative k-mer diversity, length, and occurrence distribution of reads, number of reads above quality cutoffs and mean quality distribution. The results are written to a PDF file named <code>fastqReport.pdf</code>.</p>
+<p>The following <code>seeFastq</code> and <code>seeFastqPlot</code> functions generate and plot a series of useful quality statistics for a set of FASTQ files, including per cycle quality box plots, base proportions, base-level quality trends, relative k-mer diversity, length, and occurrence distribution of reads, number of reads above quality cutoffs and mean quality distribution. The results are written to a png file named <code>fastqReport.png</code>.</p>
 <p>This is the pre-trimming fastq report. Another post-trimming fastq report step is not included in the default. It is recommended to run this step first to decide whether the trimming is needed.</p>
 <p>Please note that initial targets files are being used here. In this case, it has been added to the first step using the <code>updateColumn</code> function, and later, we used the <code>getColumn</code> function to extract a named vector.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
@@ -192,7 +192,7 @@ document.addEventListener("DOMContentLoaded", function() {
     <span class="fu">updateColumn</span><span class="op">(</span><span class="va">sal</span>, step <span class="op">=</span> <span class="st">"load_SPR"</span>, position <span class="op">=</span> <span class="st">"targetsWF"</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="va">targets</span>
     <span class="va">fq_files</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/systemPipeR/man/SYSargsList-class.html" class="external-link">getColumn</a></span><span class="op">(</span><span class="va">sal</span>, <span class="st">"load_SPR"</span>, <span class="st">"targetsWF"</span>, column <span class="op">=</span> <span class="fl">1</span><span class="op">)</span>
     <span class="va">fqlist</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/systemPipeR/man/seeFastq.html" class="external-link">seeFastq</a></span><span class="op">(</span>fastq <span class="op">=</span> <span class="va">fq_files</span>, batchsize <span class="op">=</span> <span class="fl">10000</span>, klength <span class="op">=</span> <span class="fl">8</span><span class="op">)</span>
-    <span class="fu"><a href="https://rdrr.io/r/grDevices/pdf.html" class="external-link">pdf</a></span><span class="op">(</span><span class="st">"./results/fastqReport.pdf"</span>, height <span class="op">=</span> <span class="fl">18</span>, width <span class="op">=</span> <span class="fl">4</span> <span class="op">*</span>
+    <span class="fu"><a href="https://rdrr.io/r/grDevices/png.html" class="external-link">png</a></span><span class="op">(</span><span class="st">"./results/fastqReport.png"</span>, height <span class="op">=</span> <span class="fl">162</span>, width <span class="op">=</span> <span class="fl">288</span> <span class="op">*</span>
         <span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">fqlist</span><span class="op">)</span><span class="op">)</span>
     <span class="fu"><a href="https://rdrr.io/pkg/systemPipeR/man/seeFastq.html" class="external-link">seeFastqPlot</a></span><span class="op">(</span><span class="va">fqlist</span><span class="op">)</span>
     <span class="fu"><a href="https://rdrr.io/r/grDevices/dev.html" class="external-link">dev.off</a></span><span class="op">(</span><span class="op">)</span>
@@ -349,10 +349,8 @@ Figure 2: Plot coverage for chromosome 1 region.
     <span class="va">bampaths</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/systemPipeR/man/SYSargsList-class.html" class="external-link">getColumn</a></span><span class="op">(</span><span class="va">sal</span>, step <span class="op">=</span> <span class="st">"bowtie2_alignment"</span>, <span class="st">"outfiles"</span>,
         column <span class="op">=</span> <span class="st">"samtools_sort_bam"</span><span class="op">)</span>
     <span class="va">merge_bams</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/systemPipeR/man/mergeBamByFactor.html" class="external-link">mergeBamByFactor</a></span><span class="op">(</span>args <span class="op">=</span> <span class="va">bampaths</span>, targetsDF <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/systemPipeR/man/SYSargsList-class.html" class="external-link">targetsWF</a></span><span class="op">(</span><span class="va">sal</span><span class="op">)</span><span class="op">[[</span><span class="st">"bowtie2_alignment"</span><span class="op">]</span><span class="op">]</span>,
-        overwrite <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
+        out_dir <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="st">"results"</span>, <span class="st">"merge_bam"</span><span class="op">)</span>, overwrite <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
     <span class="fu">updateColumn</span><span class="op">(</span><span class="va">sal</span>, step <span class="op">=</span> <span class="st">"merge_bams"</span>, position <span class="op">=</span> <span class="st">"targetsWF"</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="va">merge_bams</span>
-    <span class="fu"><a href="https://rdrr.io/pkg/systemPipeR/man/writeTargets.html" class="external-link">writeTargets</a></span><span class="op">(</span><span class="va">sal</span>, step <span class="op">=</span> <span class="st">"merge_bams"</span>, file <span class="op">=</span> <span class="st">"targets_merge_bams.txt"</span>,
-        overwrite <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
 <span class="op">}</span>, step_name <span class="op">=</span> <span class="st">"merge_bams"</span>, dependency <span class="op">=</span> <span class="st">"bowtie2_alignment"</span><span class="op">)</span></code></pre></div>
 </div>
 <div class="section level4">
@@ -360,35 +358,62 @@ Figure 2: Plot coverage for chromosome 1 region.
 </h4>
 <p>MACS2 can perform peak calling on ChIP-Seq data with and without input samples <span class="citation">(Zhang et al. 2008)</span>. The following performs peak calling without input on all samples specified in the corresponding <code>targets</code> object. Note, due to the small size of the sample data, MACS2 needs to be run here with the <code>nomodel</code> setting. For real data sets, users want to remove this parameter in the corresponding <code>*.param</code> file(s).</p>
 <div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu">appendStep</span><span class="op">(</span><span class="va">sal</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/systemPipeR/man/SYSargsList.html" class="external-link">SYSargsList</a></span><span class="op">(</span>step_name <span class="op">=</span> <span class="st">"call_peaks_macs_noref"</span>,
-    targets <span class="op">=</span> <span class="st">"targets_merge_bams.txt"</span>, wf_file <span class="op">=</span> <span class="st">"MACS2/macs2-noinput.cwl"</span>,
-    input_file <span class="op">=</span> <span class="st">"MACS2/macs2-noinput.yml"</span>, dir_path <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata/cwl"</span>,
-        package <span class="op">=</span> <span class="st">"systemPipeR"</span><span class="op">)</span>, inputvars <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>FileName <span class="op">=</span> <span class="st">"_FASTQ_PATH1_"</span>,
-        SampleName <span class="op">=</span> <span class="st">"_SampleName_"</span><span class="op">)</span>, dependency <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"merge_bams"</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/cat.html" class="external-link">cat</a></span><span class="op">(</span><span class="st">"Running preprocessing for call_peaks_macs_noref\n"</span><span class="op">)</span>
+<span class="co"># Previous Linewise step is not run at workflow building time, </span>
+<span class="co"># but we need the output as input for this sysArgs step. So </span>
+<span class="co"># we use some preprocess code to predict the output paths </span>
+<span class="co"># to update the output targets of merge_bams, and then</span>
+<span class="co"># them into this next step during workflow building phase.</span>
+<span class="va">mergebam_out_dir</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="st">"results"</span>, <span class="st">"merge_bam"</span><span class="op">)</span> <span class="co"># make sure this is the same output directory used in merge_bams</span>
+<span class="va">targets_merge_bam</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/systemPipeR/man/SYSargsList-class.html" class="external-link">targetsWF</a></span><span class="op">(</span><span class="va">sal</span><span class="op">)</span><span class="op">$</span><span class="va">bowtie2_alignment</span>
+<span class="va">targets_merge_bam</span> <span class="op">&lt;-</span> <span class="va">targets_merge_bam</span><span class="op">[</span>, <span class="op">-</span><span class="fu"><a href="https://rdrr.io/r/base/which.html" class="external-link">which</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">colnames</a></span><span class="op">(</span><span class="va">targets_merge_bam</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/r/base/match.html" class="external-link">%in%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"FileName1"</span>, <span class="st">"FileName2"</span>, <span class="st">"FileName"</span><span class="op">)</span><span class="op">)</span><span class="op">]</span>
+<span class="va">targets_merge_bam</span> <span class="op">&lt;-</span> <span class="va">targets_merge_bam</span><span class="op">[</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/duplicated.html" class="external-link">duplicated</a></span><span class="op">(</span><span class="va">targets_merge_bam</span><span class="op">$</span><span class="va">Factor</span><span class="op">)</span>, <span class="op">]</span>
+<span class="va">targets_merge_bam</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">cbind</a></span><span class="op">(</span>FileName <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="va">mergebam_out_dir</span>, <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="va">targets_merge_bam</span><span class="op">$</span><span class="va">Factor</span>, <span class="st">"_merged.bam"</span><span class="op">)</span><span class="op">)</span>, <span class="va">targets_merge_bam</span><span class="op">)</span>
+<span class="fu">updateColumn</span><span class="op">(</span><span class="va">sal</span>, step <span class="op">=</span> <span class="st">"merge_bams"</span>, position <span class="op">=</span> <span class="st">"targetsWF"</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="va">targets_merge_bam</span>
+<span class="co"># write it out as backup, so you do not need to use preprocess code above again</span>
+<span class="fu"><a href="https://rdrr.io/pkg/systemPipeR/man/writeTargets.html" class="external-link">writeTargets</a></span><span class="op">(</span><span class="va">sal</span>, step <span class="op">=</span> <span class="st">"merge_bams"</span>, file <span class="op">=</span> <span class="st">"targets_merge_bams.txt"</span>, overwrite <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> 
+
+<span class="co">###pre-end</span>
+<span class="fu">appendStep</span><span class="op">(</span><span class="va">sal</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/systemPipeR/man/SYSargsList.html" class="external-link">SYSargsList</a></span><span class="op">(</span>
+    step_name <span class="op">=</span> <span class="st">"call_peaks_macs_noref"</span>,
+    targets <span class="op">=</span> <span class="st">"targets_merge_bams.txt"</span>, <span class="co"># or use "merge_bams" to directly grab from the previous step</span>
+    wf_file <span class="op">=</span> <span class="st">"MACS2/macs2-noinput.cwl"</span>,
+    input_file <span class="op">=</span> <span class="st">"MACS2/macs2-noinput.yml"</span>,
+    dir_path <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata/cwl"</span>, package <span class="op">=</span> <span class="st">"systemPipeR"</span><span class="op">)</span>,
+    inputvars <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>
+        FileName <span class="op">=</span> <span class="st">"_FASTQ_PATH1_"</span>,
+        SampleName <span class="op">=</span> <span class="st">"_SampleName_"</span>
+    <span class="op">)</span>,
+    dependency <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"merge_bams"</span><span class="op">)</span>
+<span class="op">)</span></code></pre></div>
 </div>
 <div class="section level4">
 <h4 id="peak-calling-with-inputreference-sample">Peak calling with input/reference sample<a class="anchor" aria-label="anchor" href="#peak-calling-with-inputreference-sample"></a>
 </h4>
 <p>To perform peak calling with input samples, they can be most conveniently specified in the <code>SampleReference</code> column of the initial <code>targets</code> file. The <code>writeTargetsRef</code> function uses this information to create a <code>targets</code> file intermediate for running MACS2 with the corresponding input samples.</p>
 <div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu">appendStep</span><span class="op">(</span><span class="va">sal</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/systemPipeR/man/LineWise-class.html" class="external-link">LineWise</a></span><span class="op">(</span>code <span class="op">=</span> <span class="op">{</span>
-    <span class="fu"><a href="https://rdrr.io/pkg/systemPipeR/man/writeTargetsRef.html" class="external-link">writeTargetsRef</a></span><span class="op">(</span>infile <span class="op">=</span> <span class="st">"targets_merge_bams.txt"</span>, outfile <span class="op">=</span> <span class="st">"targets_bam_ref.txt"</span>,
-        silent <span class="op">=</span> <span class="cn">FALSE</span>, overwrite <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
-<span class="op">}</span>, step_name <span class="op">=</span> <span class="st">"writeTargetsRef"</span>, dependency <span class="op">=</span> <span class="st">"merge_bams"</span><span class="op">)</span></code></pre></div>
-<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu">appendStep</span><span class="op">(</span><span class="va">sal</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/systemPipeR/man/SYSargsList.html" class="external-link">SYSargsList</a></span><span class="op">(</span>step_name <span class="op">=</span> <span class="st">"call_peaks_macs_withref"</span>,
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/cat.html" class="external-link">cat</a></span><span class="op">(</span><span class="st">"Running preprocessing for call_peaks_macs_withref\n"</span><span class="op">)</span>
+<span class="co"># To generate the reference targets file for the next step,</span>
+<span class="co"># use `writeTargetsRef`, this file needs to be present at</span>
+<span class="co"># workflow building time Use following preprocess code to</span>
+<span class="co"># do so:</span>
+<span class="fu"><a href="https://rdrr.io/pkg/systemPipeR/man/writeTargetsRef.html" class="external-link">writeTargetsRef</a></span><span class="op">(</span>infile <span class="op">=</span> <span class="st">"targets_merge_bams.txt"</span>, outfile <span class="op">=</span> <span class="st">"targets_bam_ref.txt"</span>,
+    silent <span class="op">=</span> <span class="cn">FALSE</span>, overwrite <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
+
+<span class="co">### pre-end</span>
+<span class="fu">appendStep</span><span class="op">(</span><span class="va">sal</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/systemPipeR/man/SYSargsList.html" class="external-link">SYSargsList</a></span><span class="op">(</span>step_name <span class="op">=</span> <span class="st">"call_peaks_macs_withref"</span>,
     targets <span class="op">=</span> <span class="st">"targets_bam_ref.txt"</span>, wf_file <span class="op">=</span> <span class="st">"MACS2/macs2-input.cwl"</span>,
     input_file <span class="op">=</span> <span class="st">"MACS2/macs2-input.yml"</span>, dir_path <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata/cwl"</span>,
         package <span class="op">=</span> <span class="st">"systemPipeR"</span><span class="op">)</span>, inputvars <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>FileName1 <span class="op">=</span> <span class="st">"_FASTQ_PATH1_"</span>,
         FileName2 <span class="op">=</span> <span class="st">"_FASTQ_PATH2_"</span>, SampleName <span class="op">=</span> <span class="st">"_SampleName_"</span><span class="op">)</span>,
-    dependency <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"writeTargetsRef"</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+    dependency <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"merge_bams"</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 <p>The peak calling results from MACS2 are written for each sample to separate files in the <code>results/call_peaks_macs_withref</code> directory. They are named after the corresponding files with extensions used by MACS2.</p>
 </div>
 <div class="section level4">
 <h4 id="identify-consensus-peaks">Identify consensus peaks<a class="anchor" aria-label="anchor" href="#identify-consensus-peaks"></a>
 </h4>
 <p>The following example shows how one can identify consensus peaks among two peak sets sharing either a minimum absolute overlap and/or minimum relative overlap using the <code>subsetByOverlaps</code> or <code>olRanges</code> functions, respectively. Note, the latter is a custom function imported below by sourcing it.</p>
-<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">appendStep</span><span class="op">(</span><span class="va">sal</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/systemPipeR/man/LineWise-class.html" class="external-link">LineWise</a></span><span class="op">(</span>code <span class="op">=</span> <span class="op">{</span>
     <span class="va">peaks_files</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/systemPipeR/man/SYSargsList-class.html" class="external-link">getColumn</a></span><span class="op">(</span><span class="va">sal</span>, step <span class="op">=</span> <span class="st">"call_peaks_macs_noref"</span>,
         <span class="st">"outfiles"</span>, column <span class="op">=</span> <span class="st">"peaks_xls"</span><span class="op">)</span>
@@ -415,7 +440,7 @@ Figure 2: Plot coverage for chromosome 1 region.
 <h4 id="annotation-with-chipseeker-package">Annotation with <code>ChIPseeker</code> package<a class="anchor" aria-label="anchor" href="#annotation-with-chipseeker-package"></a>
 </h4>
 <p>The following annotates the identified peaks with genomic context information using the <code>ChIPseeker</code> package <span class="citation">(Yu, Wang, and He 2015)</span>.</p>
-<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">appendStep</span><span class="op">(</span><span class="va">sal</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/systemPipeR/man/LineWise-class.html" class="external-link">LineWise</a></span><span class="op">(</span>code <span class="op">=</span> <span class="op">{</span>
     <span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">ChIPseeker</span><span class="op">)</span>
     <span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">GenomicFeatures</span><span class="op">)</span>
@@ -437,19 +462,19 @@ Figure 2: Plot coverage for chromosome 1 region.
 <span class="op">}</span>, step_name <span class="op">=</span> <span class="st">"annotation_ChIPseeker"</span>, dependency <span class="op">=</span> <span class="st">"call_peaks_macs_noref"</span><span class="op">)</span></code></pre></div>
 <p>The peak annotation results are written for each peak set to separate files in the <code>results/</code> directory.</p>
 <p>Summary plots provided by the <code>ChIPseeker</code> package. Here applied only to one sample for demonstration purposes.</p>
-<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">appendStep</span><span class="op">(</span><span class="va">sal</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/systemPipeR/man/LineWise-class.html" class="external-link">LineWise</a></span><span class="op">(</span>code <span class="op">=</span> <span class="op">{</span>
     <span class="va">peaks_files</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/systemPipeR/man/SYSargsList-class.html" class="external-link">getColumn</a></span><span class="op">(</span><span class="va">sal</span>, step <span class="op">=</span> <span class="st">"call_peaks_macs_noref"</span>,
         <span class="st">"outfiles"</span>, column <span class="op">=</span> <span class="st">"peaks_xls"</span><span class="op">)</span>
     <span class="va">peak</span> <span class="op">&lt;-</span> <span class="fu">readPeakFile</span><span class="op">(</span><span class="va">peaks_files</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span><span class="op">)</span>
-    <span class="fu"><a href="https://rdrr.io/r/grDevices/pdf.html" class="external-link">pdf</a></span><span class="op">(</span><span class="st">"results/peakscoverage.pdf"</span><span class="op">)</span>
+    <span class="fu"><a href="https://rdrr.io/r/grDevices/png.html" class="external-link">png</a></span><span class="op">(</span><span class="st">"results/peakscoverage.png"</span><span class="op">)</span>
     <span class="fu">covplot</span><span class="op">(</span><span class="va">peak</span>, weightCol <span class="op">=</span> <span class="st">"X.log10.pvalue."</span><span class="op">)</span>
     <span class="fu"><a href="https://rdrr.io/r/grDevices/dev.html" class="external-link">dev.off</a></span><span class="op">(</span><span class="op">)</span>
-    <span class="fu"><a href="https://rdrr.io/r/grDevices/pdf.html" class="external-link">pdf</a></span><span class="op">(</span><span class="st">"results/peaksHeatmap.pdf"</span><span class="op">)</span>
+    <span class="fu"><a href="https://rdrr.io/r/grDevices/png.html" class="external-link">png</a></span><span class="op">(</span><span class="st">"results/peaksHeatmap.png"</span><span class="op">)</span>
     <span class="fu">peakHeatmap</span><span class="op">(</span><span class="va">peaks_files</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>, TxDb <span class="op">=</span> <span class="va">txdb</span>, upstream <span class="op">=</span> <span class="fl">1000</span>,
         downstream <span class="op">=</span> <span class="fl">1000</span>, color <span class="op">=</span> <span class="st">"red"</span><span class="op">)</span>
     <span class="fu"><a href="https://rdrr.io/r/grDevices/dev.html" class="external-link">dev.off</a></span><span class="op">(</span><span class="op">)</span>
-    <span class="fu"><a href="https://rdrr.io/r/grDevices/pdf.html" class="external-link">pdf</a></span><span class="op">(</span><span class="st">"results/peaksProfile.pdf"</span><span class="op">)</span>
+    <span class="fu"><a href="https://rdrr.io/r/grDevices/png.html" class="external-link">png</a></span><span class="op">(</span><span class="st">"results/peaksProfile.png"</span><span class="op">)</span>
     <span class="fu">plotAvgProf2</span><span class="op">(</span><span class="va">peaks_files</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>, TxDb <span class="op">=</span> <span class="va">txdb</span>, upstream <span class="op">=</span> <span class="fl">1000</span>,
         downstream <span class="op">=</span> <span class="fl">1000</span>, xlab <span class="op">=</span> <span class="st">"Genomic Region (5'-&gt;3')"</span>,
         ylab <span class="op">=</span> <span class="st">"Read Count Frequency"</span>, conf <span class="op">=</span> <span class="fl">0.05</span><span class="op">)</span>
@@ -460,7 +485,7 @@ Figure 2: Plot coverage for chromosome 1 region.
 <h4 id="annotation-with-chippeakanno-package">Annotation with <code>ChIPpeakAnno</code> package<a class="anchor" aria-label="anchor" href="#annotation-with-chippeakanno-package"></a>
 </h4>
 <p>Same as in previous step but using the <code>ChIPpeakAnno</code> package <span class="citation">(Zhu et al. 2010)</span> for annotating the peaks.</p>
-<div class="sourceCode" id="cb26"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">appendStep</span><span class="op">(</span><span class="va">sal</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/systemPipeR/man/LineWise-class.html" class="external-link">LineWise</a></span><span class="op">(</span>code <span class="op">=</span> <span class="op">{</span>
     <span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">ChIPpeakAnno</span><span class="op">)</span>
     <span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">GenomicFeatures</span><span class="op">)</span>
@@ -494,7 +519,7 @@ Figure 2: Plot coverage for chromosome 1 region.
 <h3 id="count-reads-overlapping-peaks">Count reads overlapping peaks<a class="anchor" aria-label="anchor" href="#count-reads-overlapping-peaks"></a>
 </h3>
 <p>The <code>countRangeset</code> function is a convenience wrapper to perform read counting iteratively over several range sets, here peak range sets. Internally, the read counting is performed with the <code>summarizeOverlaps</code> function from the <code>GenomicAlignments</code> package. The resulting count tables are directly saved to files, one for each peak set.</p>
-<div class="sourceCode" id="cb27"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb26"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">appendStep</span><span class="op">(</span><span class="va">sal</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/systemPipeR/man/LineWise-class.html" class="external-link">LineWise</a></span><span class="op">(</span>code <span class="op">=</span> <span class="op">{</span>
     <span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://bioconductor.org/packages/GenomicRanges" class="external-link">GenomicRanges</a></span><span class="op">)</span>
     <span class="va">bam_files</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/systemPipeR/man/SYSargsList-class.html" class="external-link">getColumn</a></span><span class="op">(</span><span class="va">sal</span>, step <span class="op">=</span> <span class="st">"bowtie2_alignment"</span>, <span class="st">"outfiles"</span>,
@@ -513,7 +538,7 @@ Figure 2: Plot coverage for chromosome 1 region.
 <h3 id="differential-binding-analysis">Differential binding analysis<a class="anchor" aria-label="anchor" href="#differential-binding-analysis"></a>
 </h3>
 <p>The <code>runDiff</code> function performs differential binding analysis in batch mode for several count tables using <code>edgeR</code> or <code>DESeq2</code> <span class="citation">(Robinson, McCarthy, and Smyth 2010; Love, Huber, and Anders 2014)</span>. Internally, it calls the functions <code>run_edgeR</code> and <code>run_DESeq2</code>. It also returns the filtering results and plots from the downstream <code>filterDEGs</code> function using the fold change and FDR cutoffs provided under the <code>dbrfilter</code> argument.</p>
-<div class="sourceCode" id="cb28"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb27"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">appendStep</span><span class="op">(</span><span class="va">sal</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/systemPipeR/man/LineWise-class.html" class="external-link">LineWise</a></span><span class="op">(</span>code <span class="op">=</span> <span class="op">{</span>
     <span class="va">countDF_files</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/systemPipeR/man/SYSargsList-class.html" class="external-link">getColumn</a></span><span class="op">(</span><span class="va">sal</span>, step <span class="op">=</span> <span class="st">"count_peak_ranges"</span>,
         <span class="st">"outfiles"</span><span class="op">)</span>
@@ -532,7 +557,7 @@ Figure 2: Plot coverage for chromosome 1 region.
 <h3 id="go-term-enrichment-analysis">GO term enrichment analysis<a class="anchor" aria-label="anchor" href="#go-term-enrichment-analysis"></a>
 </h3>
 <p>The following performs GO term enrichment analysis for each annotated peak set.</p>
-<div class="sourceCode" id="cb29"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb28"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">appendStep</span><span class="op">(</span><span class="va">sal</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/systemPipeR/man/LineWise-class.html" class="external-link">LineWise</a></span><span class="op">(</span>code <span class="op">=</span> <span class="op">{</span>
     <span class="va">annofiles</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/systemPipeR/man/SYSargsList-class.html" class="external-link">getColumn</a></span><span class="op">(</span><span class="va">sal</span>, step <span class="op">=</span> <span class="st">"annotation_ChIPseeker"</span>,
         <span class="st">"outfiles"</span><span class="op">)</span>
@@ -542,6 +567,8 @@ Figure 2: Plot coverage for chromosome 1 region.
     <span class="va">BatchResult</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/systemPipeR/man/GOHyperGAll.html" class="external-link">GOCluster_Report</a></span><span class="op">(</span>catdb <span class="op">=</span> <span class="va">catdb</span>, setlist <span class="op">=</span> <span class="va">gene_ids</span>,
         method <span class="op">=</span> <span class="st">"all"</span>, id_type <span class="op">=</span> <span class="st">"gene"</span>, CLSZ <span class="op">=</span> <span class="fl">2</span>, cutoff <span class="op">=</span> <span class="fl">0.9</span>,
         gocats <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/S4Vectors/man/Vector-class.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"MF"</span>, <span class="st">"BP"</span>, <span class="st">"CC"</span><span class="op">)</span>, recordSpecGO <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span>
+    <span class="fu"><a href="https://rdrr.io/r/utils/write.table.html" class="external-link">write.table</a></span><span class="op">(</span><span class="va">BatchResult</span>, <span class="st">"results/GOBatchAll.xls"</span>, quote <span class="op">=</span> <span class="cn">FALSE</span>,
+        row.names <span class="op">=</span> <span class="cn">FALSE</span>, sep <span class="op">=</span> <span class="st">"\t"</span><span class="op">)</span>
 <span class="op">}</span>, step_name <span class="op">=</span> <span class="st">"go_enrich"</span>, dependency <span class="op">=</span> <span class="st">"annotation_ChIPseeker"</span>,
     <span class="op">)</span></code></pre></div>
 </div>
@@ -552,7 +579,7 @@ Figure 2: Plot coverage for chromosome 1 region.
 <h4 id="parse-dna-sequences-of-peak-regions-from-genome">Parse DNA sequences of peak regions from genome<a class="anchor" aria-label="anchor" href="#parse-dna-sequences-of-peak-regions-from-genome"></a>
 </h4>
 <p>Enrichment analysis of known DNA binding motifs or <em>de novo</em> discovery of novel motifs requires the DNA sequences of the identified peak regions. To parse the corresponding sequences from the reference genome, the <code>getSeq</code> function from the <code>Biostrings</code> package can be used. The following example parses the sequences for each peak set and saves the results to separate FASTA files, one for each peak set. In addition, the sequences in the FASTA files are ranked (sorted) by increasing p-values as expected by some motif discovery tools, such as <code>BCRANK</code>.</p>
-<div class="sourceCode" id="cb30"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb29"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">appendStep</span><span class="op">(</span><span class="va">sal</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/systemPipeR/man/LineWise-class.html" class="external-link">LineWise</a></span><span class="op">(</span>code <span class="op">=</span> <span class="op">{</span>
     <span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://bioconductor.org/packages/Biostrings" class="external-link">Biostrings</a></span><span class="op">)</span>
     <span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">seqLogo</span><span class="op">)</span>
@@ -576,7 +603,7 @@ Figure 2: Plot coverage for chromosome 1 region.
 <h4 id="motif-discovery-with-bcrank">Motif discovery with <code>BCRANK</code><a class="anchor" aria-label="anchor" href="#motif-discovery-with-bcrank"></a>
 </h4>
 <p>The Bioconductor package <code>BCRANK</code> is one of the many tools available for <em>de novo</em> discovery of DNA binding motifs in peak regions of ChIP-Seq experiments. The given example applies this method on the first peak sample set and plots the sequence logo of the highest ranking motif.</p>
-<div class="sourceCode" id="cb31"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb30"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">appendStep</span><span class="op">(</span><span class="va">sal</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/systemPipeR/man/LineWise-class.html" class="external-link">LineWise</a></span><span class="op">(</span>code <span class="op">=</span> <span class="op">{</span>
     <span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://bioconductor.org/packages/Biostrings" class="external-link">Biostrings</a></span><span class="op">)</span>
     <span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">seqLogo</span><span class="op">)</span>
@@ -590,7 +617,7 @@ Figure 2: Plot coverage for chromosome 1 region.
     <span class="va">topMotif</span> <span class="op">&lt;-</span> <span class="fu">toptable</span><span class="op">(</span><span class="va">BCRANKout</span>, <span class="fl">1</span><span class="op">)</span>
     <span class="va">weightMatrix</span> <span class="op">&lt;-</span> <span class="fu">pwm</span><span class="op">(</span><span class="va">topMotif</span>, normalize <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>
     <span class="va">weightMatrixNormalized</span> <span class="op">&lt;-</span> <span class="fu">pwm</span><span class="op">(</span><span class="va">topMotif</span>, normalize <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
-    <span class="fu"><a href="https://rdrr.io/r/grDevices/pdf.html" class="external-link">pdf</a></span><span class="op">(</span><span class="st">"results/seqlogo.pdf"</span><span class="op">)</span>
+    <span class="fu"><a href="https://rdrr.io/r/grDevices/png.html" class="external-link">png</a></span><span class="op">(</span><span class="st">"results/seqlogo.png"</span><span class="op">)</span>
     <span class="fu">seqLogo</span><span class="op">(</span><span class="va">weightMatrixNormalized</span><span class="op">)</span>
     <span class="fu"><a href="https://rdrr.io/r/grDevices/dev.html" class="external-link">dev.off</a></span><span class="op">(</span><span class="op">)</span>
 <span class="op">}</span>, step_name <span class="op">=</span> <span class="st">"bcrank_enrich"</span>, dependency <span class="op">=</span> <span class="st">"call_peaks_macs_noref"</span>,
@@ -605,10 +632,10 @@ Figure 3: One of the motifs identified by <code>BCRANK</code>
 <div class="section level3">
 <h3 id="version-information">Version Information<a class="anchor" aria-label="anchor" href="#version-information"></a>
 </h3>
-<div class="sourceCode" id="cb32"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb31"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">appendStep</span><span class="op">(</span><span class="va">sal</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/systemPipeR/man/LineWise-class.html" class="external-link">LineWise</a></span><span class="op">(</span>code <span class="op">=</span> <span class="op">{</span>
     <span class="fu"><a href="https://rdrr.io/r/utils/sessionInfo.html" class="external-link">sessionInfo</a></span><span class="op">(</span><span class="op">)</span>
-<span class="op">}</span>, step_name <span class="op">=</span> <span class="st">"sessionInfo"</span>, dependency <span class="op">=</span> <span class="st">"bcrank_enrich"</span>, <span class="op">)</span></code></pre></div>
+<span class="op">}</span>, step_name <span class="op">=</span> <span class="st">"sessionInfo"</span>, dependency <span class="op">=</span> <span class="st">"bcrank_enrich"</span><span class="op">)</span></code></pre></div>
 </div>
 </div>
 <div class="section level2">
@@ -618,7 +645,7 @@ Figure 3: One of the motifs identified by <code>BCRANK</code>
 <h3 id="interactive-job-submissions-in-a-single-machine">Interactive job submissions in a single machine<a class="anchor" aria-label="anchor" href="#interactive-job-submissions-in-a-single-machine"></a>
 </h3>
 <p>For running the workflow, <code>runWF</code> function will execute all the steps store in the workflow container. The execution will be on a single machine without submitting to a queuing system of a computer cluster.</p>
-<div class="sourceCode" id="cb33"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb32"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">sal</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/systemPipeR/man/runWF.html" class="external-link">runWF</a></span><span class="op">(</span><span class="va">sal</span><span class="op">)</span></code></pre></div>
 </div>
 <div class="section level3">
@@ -628,7 +655,7 @@ Figure 3: One of the motifs identified by <code>BCRANK</code>
 <p>The <code>resources</code> list object provides the number of independent parallel cluster processes defined under the <code>Njobs</code> element in the list. The following example will run 18 processes in parallel using each 4 CPU cores. If the resources available on a cluster allow running all 18 processes at the same time, then the shown sample submission will utilize in a total of 72 CPU cores.</p>
 <p>Note, <code>runWF</code> can be used with most queueing systems as it is based on utilities from the <code>batchtools</code> package, which supports the use of template files (<em><code>*.tmpl</code></em>) for defining the run parameters of different schedulers. To run the following code, one needs to have both a <code>conffile</code> (see <em><code>.batchtools.conf.R</code></em> samples <a href="https://mllg.github.io/batchtools/" class="external-link">here</a>) and a <code>template</code> file (see <em><code>*.tmpl</code></em> samples <a href="https://github.com/mllg/batchtools/tree/master/inst/templates" class="external-link">here</a>) for the queueing available on a system. The following example uses the sample <code>conffile</code> and <code>template</code> files for the Slurm scheduler provided by this package.</p>
 <p>The resources can be appended when the step is generated, or it is possible to add these resources later, as the following example using the <code>addResources</code> function:</p>
-<div class="sourceCode" id="cb34"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb33"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">resources</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>conffile<span class="op">=</span><span class="st">".batchtools.conf.R"</span>,
                   template<span class="op">=</span><span class="st">"batchtools.slurm.tmpl"</span>, 
                   Njobs<span class="op">=</span><span class="fl">18</span>, 
@@ -645,14 +672,14 @@ Figure 3: One of the motifs identified by <code>BCRANK</code>
 <h3 id="visualize-workflow">Visualize workflow<a class="anchor" aria-label="anchor" href="#visualize-workflow"></a>
 </h3>
 <p><em><code>systemPipeR</code></em> workflows instances can be visualized with the <code>plotWF</code> function.</p>
-<div class="sourceCode" id="cb35"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb34"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/pkg/systemPipeR/man/plotWF.html" class="external-link">plotWF</a></span><span class="op">(</span><span class="va">sal</span>, rstudio <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="checking-workflow-status">Checking workflow status<a class="anchor" aria-label="anchor" href="#checking-workflow-status"></a>
 </h3>
 <p>To check the summary of the workflow, we can use:</p>
-<div class="sourceCode" id="cb36"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb35"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">sal</span>
 <span class="fu"><a href="https://rdrr.io/pkg/systemPipeR/man/SYSargsList-class.html" class="external-link">statusWF</a></span><span class="op">(</span><span class="va">sal</span><span class="op">)</span></code></pre></div>
 </div>
@@ -660,9 +687,80 @@ Figure 3: One of the motifs identified by <code>BCRANK</code>
 <h3 id="accessing-logs-report">Accessing logs report<a class="anchor" aria-label="anchor" href="#accessing-logs-report"></a>
 </h3>
 <p><em><code>systemPipeR</code></em> compiles all the workflow execution logs in one central location, making it easier to check any standard output (<code>stdout</code>) or standard error (<code>stderr</code>) for any command-line tools used on the workflow or the R code stdout.</p>
-<div class="sourceCode" id="cb37"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb36"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">sal</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/systemPipeR/man/renderLogs.html" class="external-link">renderLogs</a></span><span class="op">(</span><span class="va">sal</span><span class="op">)</span></code></pre></div>
 <p>If you are running on a single machine, use following code as an example to check if some tools used in this workflow are in your environment <strong>PATH</strong>. No warning message should be shown if all tools are installed.</p>
+</div>
+<div class="section level3">
+<h3 id="session-info">Session Info<a class="anchor" aria-label="anchor" href="#session-info"></a>
+</h3>
+<p>This is the session information for rendering this report. To access the session information of workflow running, check HTML report of <code>renderLogs</code>.</p>
+<div class="sourceCode" id="cb37"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/sessionInfo.html" class="external-link">sessionInfo</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
+<pre><code><span class="co">## R version 4.1.3 (2022-03-10)</span>
+<span class="co">## Platform: x86_64-pc-linux-gnu (64-bit)</span>
+<span class="co">## Running under: Ubuntu 20.04.4 LTS</span>
+<span class="co">## </span>
+<span class="co">## Matrix products: default</span>
+<span class="co">## BLAS:   /usr/lib/x86_64-linux-gnu/blas/libblas.so.3.9.0</span>
+<span class="co">## LAPACK: /usr/lib/x86_64-linux-gnu/lapack/liblapack.so.3.9.0</span>
+<span class="co">## </span>
+<span class="co">## locale:</span>
+<span class="co">##  [1] LC_CTYPE=C.UTF-8       LC_NUMERIC=C          </span>
+<span class="co">##  [3] LC_TIME=C.UTF-8        LC_COLLATE=C.UTF-8    </span>
+<span class="co">##  [5] LC_MONETARY=C.UTF-8    LC_MESSAGES=C.UTF-8   </span>
+<span class="co">##  [7] LC_PAPER=C.UTF-8       LC_NAME=C             </span>
+<span class="co">##  [9] LC_ADDRESS=C           LC_TELEPHONE=C        </span>
+<span class="co">## [11] LC_MEASUREMENT=C.UTF-8 LC_IDENTIFICATION=C   </span>
+<span class="co">## </span>
+<span class="co">## attached base packages:</span>
+<span class="co">## [1] stats4    stats     graphics  grDevices utils    </span>
+<span class="co">## [6] datasets  methods   base     </span>
+<span class="co">## </span>
+<span class="co">## other attached packages:</span>
+<span class="co">##  [1] systemPipeR_2.0.8           ShortRead_1.52.0           </span>
+<span class="co">##  [3] GenomicAlignments_1.30.0    SummarizedExperiment_1.24.0</span>
+<span class="co">##  [5] Biobase_2.54.0              MatrixGenerics_1.6.0       </span>
+<span class="co">##  [7] matrixStats_0.62.0          BiocParallel_1.28.3        </span>
+<span class="co">##  [9] Rsamtools_2.10.0            Biostrings_2.62.0          </span>
+<span class="co">## [11] XVector_0.34.0              GenomicRanges_1.46.1       </span>
+<span class="co">## [13] GenomeInfoDb_1.30.1         IRanges_2.28.0             </span>
+<span class="co">## [15] S4Vectors_0.32.4            BiocGenerics_0.40.0        </span>
+<span class="co">## [17] BiocStyle_2.25.0           </span>
+<span class="co">## </span>
+<span class="co">## loaded via a namespace (and not attached):</span>
+<span class="co">##  [1] sass_0.4.1             jsonlite_1.8.0        </span>
+<span class="co">##  [3] bslib_0.3.1            BiocManager_1.30.18   </span>
+<span class="co">##  [5] latticeExtra_0.6-29    GenomeInfoDbData_1.2.7</span>
+<span class="co">##  [7] yaml_2.3.5             pillar_1.7.0          </span>
+<span class="co">##  [9] lattice_0.20-45        glue_1.6.2            </span>
+<span class="co">## [11] digest_0.6.29          RColorBrewer_1.1-3    </span>
+<span class="co">## [13] colorspace_2.0-3       htmltools_0.5.2       </span>
+<span class="co">## [15] Matrix_1.4-0           pkgconfig_2.0.3       </span>
+<span class="co">## [17] bookdown_0.26          zlibbioc_1.40.0       </span>
+<span class="co">## [19] purrr_0.3.4            scales_1.2.0          </span>
+<span class="co">## [21] jpeg_0.1-9             tibble_3.1.7          </span>
+<span class="co">## [23] ggplot2_3.3.6          ellipsis_0.3.2        </span>
+<span class="co">## [25] cachem_1.0.6           cli_3.3.0             </span>
+<span class="co">## [27] magrittr_2.0.3         crayon_1.5.1          </span>
+<span class="co">## [29] memoise_2.0.1          evaluate_0.15         </span>
+<span class="co">## [31] fs_1.5.2               fansi_1.0.3           </span>
+<span class="co">## [33] hwriter_1.3.2.1        textshaping_0.3.6     </span>
+<span class="co">## [35] tools_4.1.3            formatR_1.12          </span>
+<span class="co">## [37] lifecycle_1.0.1        stringr_1.4.0         </span>
+<span class="co">## [39] munsell_0.5.0          DelayedArray_0.20.0   </span>
+<span class="co">## [41] compiler_4.1.3         pkgdown_2.0.3         </span>
+<span class="co">## [43] jquerylib_0.1.4        systemfonts_1.0.4     </span>
+<span class="co">## [45] rlang_1.0.2            grid_4.1.3            </span>
+<span class="co">## [47] RCurl_1.98-1.6         htmlwidgets_1.5.4     </span>
+<span class="co">## [49] bitops_1.0-7           rmarkdown_2.14        </span>
+<span class="co">## [51] codetools_0.2-18       gtable_0.3.0          </span>
+<span class="co">## [53] R6_2.5.1               knitr_1.39            </span>
+<span class="co">## [55] fastmap_1.1.0          utf8_1.2.2            </span>
+<span class="co">## [57] rprojroot_2.0.3        ragg_1.2.2            </span>
+<span class="co">## [59] desc_1.4.1             stringi_1.7.6         </span>
+<span class="co">## [61] parallel_4.1.3         vctrs_0.4.1           </span>
+<span class="co">## [63] png_0.1-7              xfun_0.31</span></code></pre>
 </div>
 </div>
 <div class="section level2">
